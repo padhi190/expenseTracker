@@ -8,7 +8,7 @@ function Tab1({navigation}: NativeStackScreenProps<StackPages, 'ExpensesOverview
   const { expenses } = useAppExpense();
   const onPress = (id: string) => navigation.navigate('ManageExpense', {id})
   return (
-    <ExpensesList expenses={expenses} onPress={onPress} />
+    <ExpensesList expenses={expenses.slice(0, 3)} onPress={onPress} />
   )
 }
 

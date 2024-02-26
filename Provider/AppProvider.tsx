@@ -78,7 +78,7 @@ type Action =
 function reducer(state: State, action: Action) {
   switch (action.type) {
     case 'addExpense':
-      const newExpense = { id: crypto.randomUUID(), ...action.data };
+      const newExpense = { id: Math.random().toString(), ...action.data };
       return { expenses: [...state.expenses, newExpense] };
     case 'deleteExpense':
       const filtered = state.expenses.filter((exp) => exp.id !== action.id);
