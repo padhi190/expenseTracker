@@ -1,8 +1,10 @@
 import { Text } from 'react-native'
+import { useAppExpense } from '../Provider/AppProvider'
 
 function Tab2() {
+  const  { expenses } = useAppExpense();
   return (
-    <Text>Tab2</Text>
+    <Text>{JSON.stringify(expenses)}</Text>
   )
 }
 

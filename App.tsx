@@ -5,11 +5,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { RecentExpenses, AllExpenses, ManageExpense } from './Screen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import AppProvider from './Provider/AppProvider';
 
 export type StackPages = {
-  ExpensesOverview: undefined
-  ManageExpense: undefined
-}
+  ExpensesOverview: undefined;
+  ManageExpense: undefined;
+};
 
 export type TabsPages = {
   RecentExpenses: undefined;
@@ -27,26 +28,36 @@ function ExpenseOverview() {
         component={RecentExpenses}
         options={{
           tabBarLabel: 'Recent Expenses',
-          tabBarIcon: ({ color, size }) => <Ionicons name='time' color={color} size={size}/>,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="time" color={color} size={size} />
+          ),
         }}
       />
-      <Tabs.Screen name="AllExpenses" component={AllExpenses} options={{
+      <Tabs.Screen
+        name="AllExpenses"
+        component={AllExpenses}
+        options={{
           tabBarLabel: 'All Expenses',
-          tabBarIcon: ({ color, size }) => <Ionicons name='list' color={color} size={size}/>,
-        }} />
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="list" color={color} size={size} />
+          ),
+        }}
+      />
     </Tabs.Navigator>
   );
 }
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stacks.Navigator>
-        <Stacks.Screen name='ExpensesOverview' component={ExpenseOverview}/>
-        <Stacks.Screen name='ManageExpense' component={ManageExpense}/>
-      </Stacks.Navigator>
-      <StatusBar style="auto" />
-    </NavigationContainer>
+    <AppProvider>
+      <NavigationContainer>
+        <Stacks.Navigator>
+          <Stacks.Screen name="ExpensesOverview" component={ExpenseOverview} />
+          <Stacks.Screen name="ManageExpense" component={ManageExpense} />
+        </Stacks.Navigator>
+        <StatusBar style="auto" />
+      </NavigationContainer>
+    </AppProvider>
   );
 }
 
