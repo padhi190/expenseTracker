@@ -2,37 +2,37 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
-import { Tab1, Tab2, Welcome } from './Screen';
+import { RecentExpenses, AllExpenses, ManageExpense } from './Screen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 
 export type StackPages = {
-  Welcome: undefined;
-  Tabs: undefined;
-};
+  ExpensesOverview: undefined
+  ManageExpense: undefined
+}
 
 export type TabsPages = {
-  Tab1: undefined;
-  Tab2: undefined;
+  RecentExpenses: undefined;
+  AllExpenses: undefined;
 };
 
-const Stack = createNativeStackNavigator<StackPages>();
 const Tabs = createBottomTabNavigator<TabsPages>();
+const Stacks = createNativeStackNavigator<StackPages>();
 
-function TabsPage() {
+function ExpenseOverview() {
   return (
     <Tabs.Navigator screenOptions={{ headerShown: false }}>
       <Tabs.Screen
-        name="Tab1"
-        component={Tab1}
+        name="RecentExpenses"
+        component={RecentExpenses}
         options={{
-          tabBarLabel: 'Tab 1',
-          tabBarIcon: ({ color, size }) => <Ionicons name='person-outline' color={color} size={size}/>,
+          tabBarLabel: 'Recent Expenses',
+          tabBarIcon: ({ color, size }) => <Ionicons name='time' color={color} size={size}/>,
         }}
       />
-      <Tabs.Screen name="Tab2" component={Tab2} options={{
-          tabBarLabel: 'Tab 2',
-          tabBarIcon: ({ color, size }) => <Ionicons name='airplane-outline' color={color} size={size}/>,
+      <Tabs.Screen name="AllExpenses" component={AllExpenses} options={{
+          tabBarLabel: 'All Expenses',
+          tabBarIcon: ({ color, size }) => <Ionicons name='list' color={color} size={size}/>,
         }} />
     </Tabs.Navigator>
   );
@@ -41,10 +41,10 @@ function TabsPage() {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="Tabs" component={TabsPage} />
-      </Stack.Navigator>
+      <Stacks.Navigator>
+        <Stacks.Screen name='ExpensesOverview' component={ExpenseOverview}/>
+        <Stacks.Screen name='ManageExpense' component={ManageExpense}/>
+      </Stacks.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
   );

@@ -1,3 +1,3 @@
-export { default as Welcome } from './Welcome';
-export { default as Tab1 } from './Tab1';
-export { default as Tab2 } from './Tab2';
+export { default as ManageExpense } from './ManageExpense';
+export { default as RecentExpenses } from './RecentExpenses';
+export { default as AllExpenses } from './AllExpenses';
