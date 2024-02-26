@@ -53,7 +53,8 @@ const expenses = [
   },
 ];
 
-type Expense = Omit<(typeof expenses)[0], 'id'>;
+export type Expense = Omit<(typeof expenses)[0], 'id'>;
+export type Expenses = typeof expenses;
 
 type State = typeof initialState;
 
@@ -95,7 +96,7 @@ function reducer(state: State, action: Action) {
 }
 
 type Context = {
-  expenses: typeof expenses;
+  expenses: Expenses;
   addExpense: (data: Expense) => void;
   deleteExpense: (id: string) => void;
   updateExpense: (id: string, data: Expense) => void;
