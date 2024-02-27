@@ -1,15 +1,19 @@
-import { Text } from 'react-native'
-import { useAppExpense } from '../Provider/AppProvider'
 import ExpensesList from '../Components/ExpensesList';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackPages } from '../App';
+import { useSelector } from 'react-redux';
+import { selectExpenses } from '../features/expenses/expenseSlice';
 
-function Tab1({navigation}: NativeStackScreenProps<StackPages, 'ExpensesOverview'>) {
-  const { expenses } = useAppExpense();
+function RecentExpenses({navigation}: NativeStackScreenProps<StackPages, 'ExpensesOverview'>) {
+  const expenses = useSelector(selectExpenses);
+  const sorted = [...expenses].sort((a, b) => {
+    if (b.date > a.date) return 1;
+    return -1;
+  });
   const onPress = (id: string) => navigation.navigate('ManageExpense', {id})
   return (
-    <ExpensesList expenses={expenses.slice(0, 3)} onPress={onPress} />
+    <ExpensesList expenses={sorted.slice(0,5)} onPress={onPress} />
   )
 }
 
-export default Tab1 
+export default RecentExpenses 

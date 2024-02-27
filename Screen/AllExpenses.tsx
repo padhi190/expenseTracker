@@ -1,19 +1,20 @@
-import { Text } from 'react-native'
-import { useAppExpense } from '../Provider/AppProvider'
 import ExpensesList from '../Components/ExpensesList';
-import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { StackPages } from '../App';
+import { useSelector } from 'react-redux';
+import { selectExpenses } from '../features/expenses/expenseSlice';
 
-interface Props extends NativeStackScreenProps<StackPages, 'ExpensesOverview'>{
+interface Props
+  extends NativeStackScreenProps<StackPages, 'ExpensesOverview'> {}
 
+function AllExpenses({ navigation }: Props) {
+  const expenses = useSelector(selectExpenses);
+  const sorted = [...expenses].sort((a, b) => {
+    if (b.date > a.date) return 1;
+    return -1;
+  });
+  const onPress = (id: string) => navigation.navigate('ManageExpense', { id });
+  return <ExpensesList expenses={sorted} onPress={onPress} />;
 }
 
-function Tab2({ navigation }: Props) {
-  const  { expenses } = useAppExpense();
-  const onPress = (id: string) => navigation.navigate('ManageExpense', {id})
-  return (
-    <ExpensesList expenses={expenses} onPress={onPress}/>
-  )
-}
-
-export default Tab2 
+export default AllExpenses;

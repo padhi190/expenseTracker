@@ -1,6 +1,6 @@
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { Expense, Expenses } from '../Provider/AppProvider';
+import { Expenses } from '../features/expenses/expenseSlice';
 
 interface Props {
   expenses: Expenses;
@@ -51,7 +51,7 @@ const ExpenseItem = ({
           }).format(expense.amount)}
         </Text>
       </View>
-      <Text>{expense.date.toISOString().slice(0, 10)}</Text>
+      <Text>{expense.date.slice(0, 10)}</Text>
     </Pressable>
   );
 };
